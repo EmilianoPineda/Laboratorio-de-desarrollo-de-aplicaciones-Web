@@ -1,3 +1,9 @@
-let mateBasica = require('./app.js');
 
-console.log(mateBasica.suma(3,2))
+
+exports.producto = function (a,b){
+    return a*b;
+};
+
+exports.suma = function(a,b){
+    return a+b;
+};
