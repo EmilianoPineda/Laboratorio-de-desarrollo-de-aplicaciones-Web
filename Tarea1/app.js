@@ -1,5 +1,3 @@
-
-const { rawListeners } = require('process');
 let mateBasica = require('./mate.js');
 
 
