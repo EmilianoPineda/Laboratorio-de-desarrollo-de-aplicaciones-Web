@@ -10,11 +10,6 @@ block content
         table.table 
             tr 
                 td
-                    label(for='id') ID:
-                td
-                    input#id(type='text' name='id')
-            tr 
-                td
                     label(for='color') Color:
                 td
                     input#color(type='text' name='color')
@@ -25,14 +20,14 @@ block content
                     input#modelo(type='text' name='modelo')
             tr 
                 td
-                    label(for='lat') Ubicación (lat):
+                    label(for='lat') Lat:
                 td
-                    input#lat(type='text' name='lat')
+                    input#lat(type='text' maxlength='9' name='lat')
             tr 
                 td
-                    label(for='lon') Ubicación (lat):
+                    label(for='lon') Lon:
                 td
-                    input#lon(type='text' name='lon')
+                    input#lon(type='text' maxlength='10' name='lon')
             tr
                 td 
                 td
