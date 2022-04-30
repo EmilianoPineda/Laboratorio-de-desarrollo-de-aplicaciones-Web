@@ -25,8 +25,7 @@ exports.bicicleta_create_post = (req, res) => {
     .then((data) => {
         // Indica que la bici fue creada con éxito
         res.redirect('/bicicletas')
-      });
-    
+      }); 
 }
 
 exports.bicicleta_delete_post = function(req, res){

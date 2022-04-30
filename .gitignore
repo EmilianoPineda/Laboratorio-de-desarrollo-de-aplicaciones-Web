@@ -1,5 +1,5 @@
 
-Tareas/Tarea1/node_modules
-Tareas/Tarea2/node_modules
+Tareas/Tarea1/node_modules/*
+Tareas/Tarea2/node_modules/*
 *.vscode
 .env
