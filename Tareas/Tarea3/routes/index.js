@@ -8,14 +8,14 @@ router.get('/', function(req, res, next) {
 });
 
 /* Login page. */
-router.get('/login', function(req, res, next) {
-  res.render('session/login');
+router.get('/usuarios/login', function(req, res, next) {
+  res.render('usuarios/login');
 });
 
-router.post('/login', function(req, res, next) {
+router.post('/usuarios', function(req, res, next) {
   passport.authenticate('local', function(err, usuario, info){
     if(err) return next(err)
-    if(!usuario) return res.render('session/login', {info})
+    if(!usuario) return res.render('usuarios/login', {info})
     req.logIn(usuario, function(err){
       if(err) return next(err)
       return res.redirect('/')

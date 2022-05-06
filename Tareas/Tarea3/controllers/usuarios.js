@@ -2,6 +2,8 @@
 
 let Usuario = require('../models/usuario')
 
+let bcrypt = require('bcrypt')
+
 module.exports = {
 
     list: function(req, res, next){
@@ -58,6 +60,36 @@ module.exports = {
             else
                 res.redirect('/usuarios')
         })
+    },
+
+    login_get: function(req, res, next){
+        res.render('usuarios/login')
+    },
+
+    login_post: async function(req, res, next){
+        if(!req.body.email || !req.body.password){
+            //console.log
+            res.render('usuarios/login', {errors: {message: 'se requieren ambos campos'}})
+            return
+        }
+        const body = req.body
+        const user = await Usuario.findOne({email: body.email})
+        if (user){
+            console.log('error2')
+            const validPassword = await bcrypt.compare(body.password, user.password)
+            if(validPassword){
+                let session = req.session;
+                session.userId = req.body.email;
+                res.redirect('../bicicletas/reservar')
+                return
+            } else {
+                res.render('usuarios/login', {errors: {message: 'invalid password'}})
+                return
+            }
+        } else {
+            res.render('usuarios/login', {errors: {message: 'usuario inexistente'}})
+            return
+        }
     }
 
 }

@@ -10,5 +10,9 @@ router.get('/:id/update', usuariosController.update_get)
 router.post('/:id/update', usuariosController.update)
 router.post('/:id/delete', usuariosController.delete)
 
+router.get('/login', usuariosController.login_get)
+router.post('/login', usuariosController.login_post)
+
+
 module.exports = router;
 

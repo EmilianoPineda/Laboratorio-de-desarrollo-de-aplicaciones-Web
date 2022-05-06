@@ -41,3 +41,62 @@ exports.bicicleta_update_post = function (req, res) {
     });
 
 } 
+
+exports.reservar_get = function (req, res) {
+    Bicicleta.find({}, function (err, bicis) {
+        if (err) console.log(err)
+        //Checar sesión
+        session = req.session;
+        if (session && session.userid) {
+            Reserva.find({}).
+                populate('bicicleta').
+                populate('usuario').
+                exec(function (err, reservas) {
+                    if (err) return handleError(err);
+                    console.log(reservas);
+                    res.render('bicicletas/reservar', { bicis: bicis, uid: session.userid, reservas: reservas })
+                });
+ 
+ 
+        } else {
+            res.redirect('/usuarios/login')
+        }
+    })
+}
+
+exports.reservar_post = function (req, res) {
+ 
+    //Encontrar al usuario que hará la reserva
+    Usuario.findByEmail(req.body.uid, function (err, usuario) {
+        if (err) {
+            console.log(err)
+        }
+        //Encontrar la bicicleta que se reservará
+        Bicicleta.findByCode(req.body.code, function (err, bici) {
+            if (err) {
+                console.log(err)
+            }
+            //Hacer la reserva
+            console.log("haciendo la reserva")
+            let hoy = new Date()
+            let mañana = new Date()
+            mañana.setDate(hoy.getDate() + 1)
+            usuario.reservar(bici.id, hoy, mañana, function (err, reserva) {
+                if (err) {
+                    console.log(err)
+                }
+                Bicicleta.find({}, function (err, bicis) {
+                    if (err) console.log(err)
+                    //Checar sesión
+                    session = req.session;
+                    if (session && session.userid) {
+                        res.redirect('reservar')
+                    } else {
+                        res.redirect('/')
+                    }
+                })
+            })
+        })
+    })
+ 
+}
